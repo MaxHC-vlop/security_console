@@ -30,10 +30,7 @@ class Visit(models.Model):
         )
 
     def is_long(self, minutes=60):
-        asa = self.leaved_at
-        sas = self.entered_at
-        qwe = asa - sas
-        qwe = qwe.seconds / 60
-        flag = qwe >= minutes
+        duration = (self.leaved_at - self.entered_at).seconds / 60
+        flag = duration >= minutes
 
         return flag
