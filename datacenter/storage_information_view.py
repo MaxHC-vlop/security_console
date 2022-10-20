@@ -22,7 +22,7 @@ def format_duration(duration):
 
 
 def storage_information_view(request):
-    not_leaved = Visit.objects.filter(leaved_at=None)
+    not_leaved = Visit.objects.filter(leaved_at__isnull=True)
 
     visit = Visit.objects.all()[0]
 
