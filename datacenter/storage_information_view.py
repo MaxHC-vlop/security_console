@@ -1,4 +1,3 @@
-from datacenter.models import Passcard
 from datacenter.models import Visit
 from django.shortcuts import render
 from django.utils.timezone import localtime
@@ -13,7 +12,6 @@ def get_duration(visit):
 
 
 def format_duration(duration):
-    # TODO пишите код здесь
     hours = duration // 3600
 
     minutes = (duration % 3600) // 60
@@ -24,19 +22,22 @@ def format_duration(duration):
 def storage_information_view(request):
     not_leaved = Visit.objects.filter(leaved_at__isnull=True)
 
-    visit = Visit.objects.all()[0]
+    non_closed_visits = []
+    for visit in not_leaved:
 
-    duration = get_duration(not_leaved[0].entered_at)
+        duration = get_duration(visit.entered_at)
 
-    non_closed_visits = [
-        {
-            'who_entered': not_leaved[0].passcard,
-            'entered_at': not_leaved[0].entered_at,
-            'duration': format_duration(duration),
-            'is_strange': Visit.is_long(visit)
-        }
-    ]
+        visit_content = {
+                'who_entered': visit.passcard,
+                'entered_at': visit.entered_at,
+                'duration': format_duration(duration),
+                'is_strange': visit.is_long()
+            }
+        non_closed_visits.append(visit_content)
+
+
     context = {
         'non_closed_visits': non_closed_visits,
     }
+    
     return render(request, 'storage_information.html', context)
