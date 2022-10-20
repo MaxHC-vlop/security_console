@@ -26,12 +26,12 @@ def passcard_info_view(request, passcode):
         visit_content = {
                 'entered_at': visit.entered_at,
                 'duration': difference,
-                'is_strange': Visit.is_long(visit)
+                'is_strange': visit.is_long()
             }
         this_passcard_visits += [visit_content]
     
     context = {
-        'passcard': obj,
+        'passcard': visitors,
         'this_passcard_visits': this_passcard_visits
     }
 
