@@ -3,15 +3,11 @@ from django.shortcuts import render
 from django.utils.timezone import localtime
 
 
-def get_duration(visit):
+def get_duration(visit: Visit) -> str:
     local_time = localtime()
     
-    dutation = local_time - visit
+    duration = (local_time - visit).seconds
 
-    return dutation.seconds
-
-
-def format_duration(duration):
     hours = duration // 3600
 
     minutes = (duration % 3600) // 60
@@ -30,7 +26,7 @@ def storage_information_view(request):
         visit_content = {
                 'who_entered': visit.passcard,
                 'entered_at': visit.entered_at,
-                'duration': format_duration(duration),
+                'duration': duration,
                 'is_strange': visit.is_long()
             }
         non_closed_visits.append(visit_content)
@@ -39,5 +35,5 @@ def storage_information_view(request):
     context = {
         'non_closed_visits': non_closed_visits,
     }
-    
+
     return render(request, 'storage_information.html', context)

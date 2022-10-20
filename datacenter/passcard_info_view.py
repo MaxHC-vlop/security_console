@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 
 
-def format_duration(duration: int) -> str:
+def get_duration(visit: Visit) -> str:
+    duration = (visit.leaved_at - visit.entered_at).seconds
     hours = duration // 3600
 
     minutes = (duration % 3600) // 60
@@ -19,9 +20,7 @@ def passcard_info_view(request, passcode):
 
     this_passcard_visits = []
     for visit in visits:
-        duration = visit.leaved_at - visit.entered_at
-
-        difference = format_duration(duration.seconds)
+        difference = get_duration(visit)
 
         visit_content = {
                 'entered_at': visit.entered_at,
