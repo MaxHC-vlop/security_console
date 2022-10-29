@@ -50,11 +50,6 @@ class Visit(models.Model):
 
 
     def is_long(self, minutes=60):
-        print(self.entered_at)
-        entered = self.entered_at.second / 60
-        flag = entered >= minutes
-        if self.leaved_at:
-            duration = self.get_duration()['duration'] / 60
-            flag = duration >= minutes
-
+        duration = self.get_duration()
+        flag = duration > 60* minutes
         return flag
