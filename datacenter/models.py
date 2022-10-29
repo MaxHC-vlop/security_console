@@ -29,6 +29,20 @@ class Visit(models.Model):
             )
         )
 
+    def get_duration(self) -> dict:
+        duration = (self.leaved_at - self.entered_at).seconds
+        hours = duration // 3600
+
+        minutes = (duration % 3600) // 60
+
+        passcard_duration = f'{hours}ч {minutes}мин'
+
+        durations = {
+            'passcard_duration': passcard_duration
+        }
+
+        return durations
+
     def is_long(self, minutes=60):
         flag = True
         if self.leaved_at:
