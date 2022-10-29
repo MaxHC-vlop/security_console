@@ -3,18 +3,6 @@ from django.shortcuts import render
 from django.utils.timezone import localtime
 
 
-def get_duration(visit: Visit) -> str:
-    local_time = localtime()
-    
-    duration = (local_time - visit).seconds
-
-    hours = duration // 3600
-
-    minutes = (duration % 3600) // 60
-
-    return f'{hours}ч {minutes}мин'
-
-
 def storage_information_view(request):
     not_leaved = Visit.objects.filter(leaved_at__isnull=True)
 
@@ -23,7 +11,7 @@ def storage_information_view(request):
         visit_content = {
                 'who_entered': visit.passcard,
                 'entered_at': visit.entered_at,
-                'duration': 'None',
+                'duration': visit.format_duration(),
                 'is_strange': visit.is_long()
             }
         non_closed_visits.append(visit_content)
