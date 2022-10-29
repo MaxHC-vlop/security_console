@@ -20,13 +20,10 @@ def storage_information_view(request):
 
     non_closed_visits = []
     for visit in not_leaved:
-
-        duration = get_duration(visit.entered_at)
-
         visit_content = {
                 'who_entered': visit.passcard,
                 'entered_at': visit.entered_at,
-                'duration': duration,
+                'duration': 'None',
                 'is_strange': visit.is_long()
             }
         non_closed_visits.append(visit_content)
