@@ -40,6 +40,15 @@ class Visit(models.Model):
         return duration.total_seconds()
 
 
+    def format_duration(self):
+        duration = self.get_duration()
+        hours = duration // (60 * 60)
+        duration %= 60 * 60
+        minutes = duration // 60
+        duration %= 60
+        return f"{int(hours)}:{int(minutes)}:{int(duration)}"
+
+
     def is_long(self, minutes=60):
         print(self.entered_at)
         entered = self.entered_at.second / 60
