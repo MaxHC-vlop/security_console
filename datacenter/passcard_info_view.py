@@ -5,11 +5,11 @@ from django.shortcuts import get_object_or_404
 
 
 def passcard_info_view(request, passcode):
-    visitors = get_object_or_404(Passcard, passcode=passcode)
+    passcards = get_object_or_404(Passcard, passcode=passcode)
 
-    visits = Visit.objects.filter(passcard=visitors)
+    visits = Visit.objects.filter(passcard=passcards)
 
-    this_passcard_visits = []
+    passcard_visits = []
 
     for visit in visits:
         visit_content = {
@@ -17,11 +17,11 @@ def passcard_info_view(request, passcode):
                 'duration': visit.format_duration(),
                 'is_strange': visit.is_long()
             }
-        this_passcard_visits.append(visit_content)
+        passcard_visits.append(visit_content)
     
     context = {
-        'passcard': visitors,
-        'this_passcard_visits': this_passcard_visits
+        'passcard': passcards,
+        'this_passcard_visits': passcard_visits
     }
 
     return render(request, 'passcard_info.html', context)
