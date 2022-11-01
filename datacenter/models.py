@@ -33,10 +33,10 @@ class Visit(models.Model):
 
 
     def get_duration(self):
-        if not self.leaved_at:
-            duration = localtime() - self.entered_at
-        else:
+        duration = localtime() - self.entered_at
+        if self.leaved_at:
             duration = self.leaved_at - self.entered_at
+
         return duration.total_seconds()
 
 
@@ -46,10 +46,12 @@ class Visit(models.Model):
         duration %= 60 * 60
         minutes = duration // 60
         duration %= 60
+
         return f"{int(hours)}:{int(minutes)}:{int(duration)}"
 
 
     def is_long(self, minutes=60):
         duration = self.get_duration()
         flag = duration > 60* minutes
+
         return flag
