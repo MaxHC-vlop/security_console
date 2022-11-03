@@ -33,7 +33,7 @@ class Visit(models.Model):
 
 
     def get_duration(self):
-        duration = localtime() - self.entered_at
+        duration = localtime(self.leaved_at) - localtime(self.entered_at)
 
         return duration.total_seconds()
 
