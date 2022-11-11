@@ -33,9 +33,9 @@ DB_PORT='your_port'
 DB_NAME='your_name'
 DB_USER='your_user'
 DB_PASSWORD='your_passwod'
-DB_DEBUG=`true or false`
+DB_DEBUG=`true or false` (default value `False`)
 SECRET_KEY=`your_secret_key`
-ALLOWED_HOSTS=[`your_domain_1`, `your_domain_2`, ...]
+ALLOWED_HOSTS=[`your_domain_1`, `your_domain_2`, ...] (default value `localhost`)
 ```
 
 ## Run
