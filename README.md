@@ -34,6 +34,8 @@ DB_NAME='your_name'
 DB_USER='your_user'
 DB_PASSWORD='your_passwod'
 DB_DEBUG=`true or false`
+SECRET_KEY=`your_secret_key`
+ALLOWED_HOSTS=[`your_domain_1`, `your_domain_2`, ...]
 ```
 
 ## Run
